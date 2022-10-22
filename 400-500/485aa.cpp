@@ -13,26 +13,22 @@ bool chmax(T &a, const T& b) {if (a < b) {a = b;return true;}return false;}
 template <typename T>
 bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 
-int main()
-{
-    ll N; cin>>N;
-    int M; cin>>M;
-    vector<ll> A(M+2); rep(i,M) cin>>A[i+1];
-    A[0]=0;A[M+1]=N+1;
-    sort(A.begin(),A.end());
+int N, K, p[201010];
+double e[201010];
+//---------------------------------------------------------------------------------------------------
+void _main() {
+    cin >> N >> K;
+    rep(i, 0, N) cin >> p[i];
 
-    ll stamp=1010101010;
-    repp(i,1,M+1){
-        if(A[i]-A[i-1]-1>0) stamp=min(stamp,A[i]-A[i-1]-1);
+    rep(i, 0, N) e[i] = 1.0 * (1 + p[i]) / 2;
+
+    double tot = 0;
+    rep(i, 0, K) tot += e[i];
+
+    double ans = tot;
+    rep(i, K, N) {
+        tot = tot + e[i] - e[i - K];
+        chmax(ans, tot);
     }
-
-    int ans=0;
-    repp(i,1,M+1){
-        if(A[i]-A[i-1]-1>0)
-        ans+=((A[i]-A[i-1]-1+stamp-1)/stamp);
-    }
-
-    cout<<ans<<endl;
-    
-    return 0;
+    printf("%.10f\n", ans);
 }
