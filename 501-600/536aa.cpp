@@ -4,28 +4,29 @@ using namespace std;
 int main() {
     
 	int N,K;
-	cin>>N>>K;
+	cin>>N>>K;//K=1はバブルソートで必ず昇順になる
 	
-	vector<vector<int>> b(K);
 	
 	vector<int> a(N);
 	for(int i=0;i<N;i++){
 		cin>>a[i];
-		b[i%K].push_back(a[i]);
 	}
 	
-	for(int i=0;i<K;i++){
-		sort(b[i].rbegin(),b[i].rend());
-	}
-	
-	sort(a.begin(),a.end());
-	
-	vector<int> na;
-	for(int i=0;i<N;i++){
-		na.push_back(b[i%K].back());
-		b[i%K].pop_back();
-	}
-	
+	rep(i,K){
+		vector<int> b;
+		for(int j=i;i<N;i+=K){
+			b.push_back(a[i]);
+		}
+		sort(b.begin(),b.end());//ここまででKで割った余りが0~K-1のグループそれぞれについてソート
+
+		for(int j=i; j<N;j+=K){//0~K-1のグループそれぞれをAに入れる
+			a[j]=b[j/K];
+		}
+	}	
+
+	vector<int> na =a;
+	sort(na.begin(),na.end());
+
 	if(a==na)cout<<"Yes"<<endl;
 	else cout<<"No"<<endl;
 	
