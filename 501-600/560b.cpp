@@ -15,28 +15,16 @@ bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 
 int main()
 {
-    int N;cin>>N;
-    vector<P> q; //(N)書くとWA
-    rep(i,N){
-        int l,r;
-        cin>>l>>r;
-        q.push_back({l,0});
-        q.push_back({r,1});
-    } 
-
-    sort(q.begin(),q.end());
-    int cnt=0;
-
-    for(auto[t,f]:q){
-        if(f==0){
-            if(cnt==0) cout<<t<<' ';
-            cnt++;
-        }else{
-            cnt--;
-            if(cnt==0) cout<<t<<endl;
-        }
+    ll N;cin>>N;
+    vector<int> nums;
+    while(N>0){
+        N--;//これがないとN=26の時azとなってしまう。
+        nums.push_back(N%26);
+        N/=26;
     }
-
-
+    string ans;
+    string abc="abcdefghijklmnopqrstuvwxyz";
+    rep(i,nums.size()) ans=abc[nums[i]]+ans;
+    cout<<ans<<endl;
     return 0;
 }

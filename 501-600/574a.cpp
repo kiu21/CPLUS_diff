@@ -15,28 +15,18 @@ bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 
 int main()
 {
-    int N;cin>>N;
-    vector<P> q; //(N)書くとWA
-    rep(i,N){
-        int l,r;
-        cin>>l>>r;
-        q.push_back({l,0});
-        q.push_back({r,1});
-    } 
-
-    sort(q.begin(),q.end());
-    int cnt=0;
-
-    for(auto[t,f]:q){
-        if(f==0){
-            if(cnt==0) cout<<t<<' ';
-            cnt++;
-        }else{
-            cnt--;
-            if(cnt==0) cout<<t<<endl;
-        }
+    ll X,A,D,N; cin>>X>>A>>D>>N;
+    ll ans=0;
+    if(X<A || D==0) cout<<abs(A-X)<<endl;
+    else if(X>A+N*D && N*D>0) cout<<X-(A+N*D)<<endl;
+    else if(X>A-N*D && N*D<0) cout<<X-(A)<<endl;
+    else{
+        ll pre=X-A;
+        ll quotient=pre/D;
+        ans=min(abs(X-(A+quotient*D)),abs(X-(A+(quotient+1)*D)));
+        cout<<ans<<endl;
+        
     }
-
-
+    
     return 0;
 }

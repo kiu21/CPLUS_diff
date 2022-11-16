@@ -15,27 +15,26 @@ bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 
 int main()
 {
-    int N;cin>>N;
-    vector<P> q; //(N)書くとWA
-    rep(i,N){
-        int l,r;
-        cin>>l>>r;
-        q.push_back({l,0});
-        q.push_back({r,1});
-    } 
+    ll N,A,B,P,Q,R,S; cin>>N>>A>>B>>P>>Q>>R>>S;
+    
+    vector<string> ans(Q-P+1);
 
-    sort(q.begin(),q.end());
-    int cnt=0;
+    rep(i,Q-P+1)rep(j,S-R+1) ans[i].push_back('.');
 
-    for(auto[t,f]:q){
-        if(f==0){
-            if(cnt==0) cout<<t<<' ';
-            cnt++;
-        }else{
-            cnt--;
-            if(cnt==0) cout<<t<<endl;
+    rep(i,Q-P+1){
+        rep(j,S-R+1){
+            if(i-j==A-B+R-P) ans[i][j]='#';
+            if(i+j==A+B-R-P) ans[i][j]='#';
         }
     }
+
+    rep(i,Q-P+1){
+        rep(j,S-R+1){
+            cout<<ans[i][j];
+        }
+        cout<<endl;
+    }
+    
 
 
     return 0;
